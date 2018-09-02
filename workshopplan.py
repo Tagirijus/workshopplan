@@ -54,13 +54,13 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
             material_blocks = ''
             for x in materials:
                 material_uses.append(
-                    '{} ({})'.format(x, len(materials[x]))
+                    '- {} ({})'.format(x, len(materials[x]))
                 )
                 material_blocks += '{}: {}\n\n'.format(
                     x, ', '.join(materials[x])
                 )
             msg = 'Materials:\n\nUsages:\n{}\n\nIn blocks:\n{}'.format(
-                ', '.join(material_uses),
+                '\n'.join(material_uses),
                 material_blocks
             )
             sublime.message_dialog(msg)
