@@ -98,6 +98,16 @@ class WPlan(object):
                 pass
         return materials
 
+    def getTypes(self):
+        types = []
+        for x in self.Blocks:
+            try:
+                if x.Elements['Type'] not in types:
+                    types.append(x.Elements['Type'])
+            except Exception:
+                pass
+        return types
+
 
 class WPBlock(object):
     def __init__(self, string, pos_start):

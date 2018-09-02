@@ -47,5 +47,4 @@ An example `.wplan` file is [here](documentation/example.wplan).
 
 ## To do
 
-- Making `Types` easy accessible.
 - Export into HTML and / or PDF

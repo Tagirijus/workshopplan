@@ -21,6 +21,7 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
 
     def generateMenu(self):
         return [
+            'Types',
             'Time',
             'Material'
         ]
@@ -31,6 +32,9 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
 
         if i == -1:
             return False
+
+        elif menu[i] == 'Types':
+            self.typeChoser(wp)
 
         elif menu[i] == 'Time':
             index = wp.getActualIndex(self.cursor_start)
@@ -64,3 +68,19 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
                 material_blocks
             )
             sublime.message_dialog(msg)
+
+    def typeChoser(self, wplan):
+        self.types = wplan.getTypes()
+        sublime.active_window().show_quick_panel(
+            self.types, on_select=self.selectType
+        )
+
+    def selectType(self, i):
+        if i == -1:
+            return False
+        else:
+            try:
+                insert_me = self.types[i]
+                self.view.run_command('insert', {'characters': insert_me})
+            except Exception:
+                return False
