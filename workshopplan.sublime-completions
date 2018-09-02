@@ -11,5 +11,7 @@
 		{ "trigger": "goal", "contents": "Goal\n\t$1" },
 		{ "trigger": "material", "contents": "Material\n\t$1" },
 		{ "trigger": "instructions", "contents": "Instructions\n\t$1" },
+		{ "trigger": "block", "contents": "${1:TITLE}\n\tTime\n\t\t${2:MINUTES}\n${3:\tType\n\t\t${4:theory}\n}${5:\tDescription\n\t\t${6:Describe me ...}\n}${7:\tGoal\n\t\t${8:Goals ...}\n}${9:\tMaterial\n\t\t- ${10:item}\n}${11:\tInstructions\n\t\t${12:Do this and that ...}\n}" },
+		{ "trigger": "break", "contents": "${1:Break}\n\tTime\n\t\t${2:MINUTES}\n" },
 	]
 }
