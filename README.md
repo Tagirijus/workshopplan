@@ -47,4 +47,5 @@ An example `.wplan` file is [here](documentation/example.wplan).
 
 ## To do
 
+- Different approach to storing elements. Maybe as a dict with additional info about the type.
 - Export into HTML and / or PDF
