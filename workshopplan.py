@@ -1,6 +1,7 @@
 import sublime
 import sublime_plugin
 from .general.wplan import WPlan
+from .general import wplan
 
 
 class WorkshopplanCommand(sublime_plugin.TextCommand):
@@ -21,11 +22,16 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
     def generateMenu(self):
         return [
             'Test',
+            'Total time',
             'Summerize'
         ]
 
     def select(self, i):
         if i == 0:
             wp = WPlan(self.all_content)
-            msg = str(wp.getBlocks())
-            sublime.message_dialog(msg)
+            print(wp.Elements)
+            # sublime.message_dialog(msg)
+
+        elif i == 1:
+            wp = WPlan(self.all_content)
+            sublime.message_dialog(wp.getTimeSum())

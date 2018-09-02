@@ -7,10 +7,10 @@ scope: source.wplan
 
 contexts:
   main:
-    - match: ^[^\s#\[](.*)
+    - match: ^[^\s\#\[](.*)
       scope: workshop.block.title entity.name.function
 
-    - match: ^\t(Time|Type|Description|Goal|Material|Instructions)
+    - match: ^\t([^\t-]+)
       scope: workshop.block.element
 
     - match: ^\t\t([^\t-]+)
