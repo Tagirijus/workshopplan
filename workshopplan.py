@@ -21,7 +21,8 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
 
     def generateMenu(self):
         return [
-            'Time'
+            'Time',
+            'Material'
         ]
 
     def select(self, i):
@@ -44,5 +45,22 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
                 '\n\nOverall time:\t{}'
             ).format(
                 title, time, duration, all_time
+            )
+            sublime.message_dialog(msg)
+
+        elif menu[i] == 'Material':
+            materials = wp.getMaterials()
+            material_uses = []
+            material_blocks = ''
+            for x in materials:
+                material_uses.append(
+                    '{} ({})'.format(x, len(materials[x]))
+                )
+                material_blocks += '{}: {}\n\n'.format(
+                    x, ', '.join(materials[x])
+                )
+            msg = 'Materials:\n\nUsages:\n{}\n\nIn blocks:\n{}'.format(
+                ', '.join(material_uses),
+                material_blocks
             )
             sublime.message_dialog(msg)

@@ -85,6 +85,19 @@ class WPlan(object):
             toTime(end)
         )
 
+    def getMaterials(self):
+        materials = {}
+        for x in self.Blocks:
+            try:
+                for m in x.Elements['Material']:
+                    if m not in materials:
+                        materials[m] = [x.Title]
+                    else:
+                        materials[m].append(x.Title)
+            except Exception:
+                pass
+        return materials
+
 
 class WPBlock(object):
     def __init__(self, string, pos_start):
