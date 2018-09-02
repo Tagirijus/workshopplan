@@ -7,6 +7,12 @@ DETAIL = re.compile(r'^\t\t([^\t-]+)')
 LIST = re.compile(r'^\t\t-\s([^\t]+)')
 
 
+def toTime(integer):
+    hours = integer // 60
+    minutes = integer - (hours * 60)
+    return '{}:{:02} h'.format(hours, minutes)
+
+
 class WPlan(object):
     def __init__(self, string):
         self.Blocks = self.strToBlocks(string)
@@ -26,8 +32,10 @@ class WPlan(object):
 
     def strToBlocks(self, string):
         out = []
+        position = 0
         for x in string.split('\n\n'):
-            block = WPBlock(x)
+            block = WPBlock(x, position)
+            position = block.pos_end + 2
             if block is not None:
                 out.append(block)
         return out
@@ -47,16 +55,41 @@ class WPlan(object):
                 time += int(x.Elements['Time'])
             except Exception:
                 pass
-        return self.toTime(time)
+        return toTime(time)
 
-    def toTime(self, integer):
-        hours = integer // 60
-        minutes = integer - (hours * 60)
-        return '{}:{:02} h'.format(hours, minutes)
+    def getActualIndex(self, cursor_pos):
+        block_index = -1
+        for i, x in enumerate(self.Blocks):
+            if cursor_pos >= x.pos_start and cursor_pos <= x.pos_end:
+                block_index = i
+        return block_index
+
+    def getActualTime(self, index):
+        start = 0
+        for x in self.Blocks[:index]:
+            try:
+                start += int(x.Elements['Time'])
+            except Exception:
+                pass
+        try:
+            end = start + int(self.Blocks[index].Elements['Time'])
+        except Exception:
+            end = start
+
+        return start, end
+
+    def getActualTimeStr(self, index):
+        start, end = self.getActualTime(index)
+        return '{} - {}'.format(
+            toTime(start),
+            toTime(end)
+        )
 
 
 class WPBlock(object):
-    def __init__(self, string):
+    def __init__(self, string, pos_start):
+        self.pos_start = pos_start
+        self.pos_end = pos_start + len(string)
         self.Title = ''
         self.Elements = {}
         self.last = 'undefined'
@@ -96,3 +129,12 @@ class WPBlock(object):
                 if self.last not in self.Elements:
                     self.Elements[self.last] = []
                 self.Elements[self.last].append(LIST.match(x).group(1))
+
+    def getDuration(self):
+        try:
+            return int(self.Elements['Time'])
+        except Exception:
+            return 0
+
+    def getDurationStr(self):
+        return toTime(self.getDuration())
