@@ -1,0 +1,20 @@
+%YAML 1.2
+---
+
+name: Workshop Plan
+file_extensions: [wplan]
+scope: source.wplan
+
+contexts:
+  main:
+    - match: ^[^\s#\[](.*)
+      scope: workshop.block.title entity.name.function
+
+    - match: ^\t(Time|Type|Description|Goal|Material|Instructions)
+      scope: workshop.block.element
+
+    - match: ^\t\t([^\t-]+)
+      scope: workshop.block.detail
+
+    - match: ^\t\t-\s([^\t]+)
+      scope: workshop.block.list

@@ -1,0 +1,15 @@
+{
+	"scope": "source.wplan",
+
+	"completions":
+	[
+		"wplan",
+
+		{ "trigger": "time", "contents": "Time\n\t$1" },
+		{ "trigger": "type", "contents": "Type\n\t$1" },
+		{ "trigger": "description", "contents": "Description\n\t$1" },
+		{ "trigger": "goal", "contents": "Goal\n\t$1" },
+		{ "trigger": "material", "contents": "Material\n\t$1" },
+		{ "trigger": "instructions", "contents": "Instructions\n\t$1" },
+	]
+}
