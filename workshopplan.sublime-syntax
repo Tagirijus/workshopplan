@@ -13,8 +13,11 @@ contexts:
     - match: ^\t([^\t-]+)
       scope: workshop.block.element
 
-    - match: ^\t\t([^\t-]+)
+    - match: ^\t\t([^\t>-]+)
       scope: workshop.block.detail
 
     - match: ^\t\t-\s([^\t]+)
       scope: workshop.block.list
+
+    - match: ^\t\t>\s([^\t]+)
+      scope: workshop.block.detail.sub

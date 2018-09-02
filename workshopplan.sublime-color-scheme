@@ -75,5 +75,11 @@
             "foreground": "var(orange2)",
             "font_style": "italic"
         },
+        {
+            "name": "Sub-Detail",
+            "scope": "workshop.block.detail.sub",
+            "foreground": "var(yellow2)",
+            "font_style": "italic"
+        },
 	]
 }
