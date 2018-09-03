@@ -1,11 +1,7 @@
-import re
 import yaml
 
 
-TITLE = re.compile(r'^[^\s\#\[](.*)')
-ELEMENT = re.compile(r'^\t([^\t-]+)')
-DETAIL = re.compile(r'^\t\t([^\t-]+)')
-LIST = re.compile(r'^\t\t-\s([^\t]+)')
+TYPES = ['discussion', 'theory', 'exercise', 'break']
 
 
 def toTime(integer):

@@ -1,14 +1,13 @@
 import sublime
 import sublime_plugin
 from .general.wplan import WPlan
+from .general.wplan import TYPES
 
 
 class WorkshopplanCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         self.initMenu()
         self.initContent()
-
-        self.types = ['discussion', 'theory', 'exercise', 'break']
 
     def initMenu(self):
         self.data = self.generateMenu()
@@ -77,7 +76,7 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
 
     def typeChoser(self):
         sublime.active_window().show_quick_panel(
-            self.types, on_select=self.selectType
+            TYPES, on_select=self.selectType
         )
 
     def selectType(self, i):
@@ -85,7 +84,7 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
             return False
         else:
             try:
-                insert_me = self.types[i]
+                insert_me = TYPES[i]
                 self.view.run_command('insert', {'characters': insert_me})
             except Exception:
                 return False
