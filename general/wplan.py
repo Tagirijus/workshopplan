@@ -10,9 +10,12 @@ WORKSHOP = {
 
 
 def toTime(integer):
-    hours = integer // 60
-    minutes = integer - (hours * 60)
-    return '{}:{:02} h'.format(hours, minutes)
+    try:
+        hours = integer // 60
+        minutes = integer - (hours * 60)
+        return '{}:{:02} h'.format(hours, minutes)
+    except Exception:
+        return '0:00 h'
 
 
 class WPlan(object):
