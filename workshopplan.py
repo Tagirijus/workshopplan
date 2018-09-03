@@ -2,6 +2,7 @@ import sublime
 import sublime_plugin
 from .general.wplan import WPlan
 from .general.wplan import TYPES
+from .general.settings import Settings
 
 
 class WorkshopplanCommand(sublime_plugin.TextCommand):
@@ -26,6 +27,7 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
             'Material',
             'Add type',
             'Add material',
+            'Test'
         ]
 
     def select(self, i):
@@ -85,6 +87,10 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
 
         elif menu[i] == 'Add material':
             self.materialChoser(wp)
+
+        elif menu[i] == 'Test':
+            S = Settings()
+            print(S.settings)
 
     def typeChoser(self):
         sublime.active_window().show_quick_panel(

@@ -2,4 +2,7 @@
 *.sublime-workspace
 *.pyc
 test*.wplan
+test*.html
+test*.pdf
 .build
+settings.yaml

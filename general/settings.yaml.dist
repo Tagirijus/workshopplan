@@ -1,0 +1,5 @@
+# The relative paths are meant to be relative from the root plugin folder
+
+---
+html_template_file: export/html/template.html
+...

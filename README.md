@@ -20,6 +20,10 @@ After cloning you should set up a key binding like this:
 
 And now when pressing `Alt+E` the plugin starts.
 
+## Settings
+
+There is a `general/settings.yaml.dist` which should be copied to `general/settings.yaml` and tweaked. Hopefully the keys are self explaining. Feel free to contact me, if somethign is not clear.
+
 ## Usage
 
 The syntax is just YAML, which should look something like this:
