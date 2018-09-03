@@ -1,12 +1,14 @@
 # Workshop Plan
 
-This is an approach for some kind of plain text syntax for planning workshops, seminars, tutorials, training lessons, etc. I tried to put this all into a Sublime Text plugin with syntax highlighting, analyzing output as a sublime popup message and also the ability to export the overall plan into another format like HTML or PDF. The syntax basically is just YAML.
+This is an approach for some kind of plain text syntax for planning workshops, seminars, tutorials, training lessons, etc. I tried to put this all into a Sublime Text 3 plugin with syntax highlighting, analyzing output as a sublime popup message and also the ability to export the overall plan into another format like HTML or PDF. The syntax basically is just YAML.
 
 The syntax highlighting can look like this:
 
 ![screenshot](documentation/screenshot.png)
 
 ## Installation
+
+I tested this plugin in Sublime Text 3 (build 3176).
 
 To install the plugin, clone the repo to a new folder like this: `[SUBLIME_FOLDER]/Packages/WorkshopPlan`. An install with the `Package Control` is not possible yet, since I am not sure how to do this. Help is appreciated here!
 

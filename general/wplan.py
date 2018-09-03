@@ -36,14 +36,16 @@ class WPlan(object):
     def strToBlocks(self, string):
         position = 0
         for x in string.split('\n\n'):
-            block = yaml.load(x)
-            block['pos_start'] = position
-            block['pos_end'] = position + len(x)
-            position = block['pos_end'] + 2
+            try:
+                block = yaml.load(x)
+                block['pos_start'] = position
+                block['pos_end'] = position + len(x)
+                position = block['pos_end'] + 2
+            except Exception:
+                continue
             if 'Title' in block:
                 self.Blocks.append(block)
             elif 'Workshop' in block:
-                print(block)
                 self.Workshop = block
 
     def getDurationStr(self, index):
