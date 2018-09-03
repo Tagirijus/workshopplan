@@ -22,10 +22,10 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
 
     def generateMenu(self):
         return [
+            'Time',
+            'Material',
             'Add type',
             'Add material',
-            'Time',
-            'Material'
         ]
 
     def select(self, i):
@@ -36,19 +36,31 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
             return False
 
         elif menu[i] == 'Time':
-            index = wp.getActualIndex(self.cursor_start)
-            title = wp.Blocks[index]['Title']
-            time = wp.getActualTimeStr(index)
-            duration = wp.getDurationStr(index)
             all_time = wp.getTimeSum()
-            msg = (
-                'Title:\t\t\t{}'
-                '\nTime:\t\t\t{}'
-                '\nDuration:\t\t{}'
-                '\n\nOverall time:\t{}'
-            ).format(
-                title, time, duration, all_time
-            )
+            index = wp.getActualIndex(self.cursor_start)
+            if index != -1:
+                title = wp.Blocks[index]['Title']
+                time = wp.getActualTimeStr(index)
+                duration = wp.getDurationStr(index)
+                msg = (
+                    'Block information'
+                    '\n\nTitle:\t\t\t{}'
+                    '\nTime:\t\t\t{}'
+                    '\nDuration:\t\t{}'
+                    '\n\nOverall time:\t{}'
+                ).format(
+                    title, time, duration, all_time
+                )
+            else:
+                msg = (
+                    'Workshop title:\n\t{}'
+                    '\nAuthor:\n\t{}'
+                    '\nOverall time:\n\t{}'
+                ).format(
+                    wp.Workshop['Workshop'],
+                    wp.Workshop['Author'],
+                    all_time
+                )
             sublime.message_dialog(msg)
 
         elif menu[i] == 'Material':

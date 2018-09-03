@@ -2,6 +2,11 @@ import yaml
 
 
 TYPES = ['discussion', 'theory', 'exercise', 'break']
+WORKSHOP = {
+    'Workshop': None,
+    'Author': None,
+    'Description': None
+}
 
 
 def toTime(integer):
@@ -12,7 +17,9 @@ def toTime(integer):
 
 class WPlan(object):
     def __init__(self, string):
-        self.Blocks = self.strToBlocks(string)
+        self.Blocks = []
+        self.Workshop = WORKSHOP
+        self.strToBlocks(string)
 
     def __delitem__(self, key):
         self.Blocks.__delattr__(key)
@@ -27,7 +34,6 @@ class WPlan(object):
         return iter(self.Blocks)
 
     def strToBlocks(self, string):
-        out = []
         position = 0
         for x in string.split('\n\n'):
             block = yaml.load(x)
@@ -35,8 +41,10 @@ class WPlan(object):
             block['pos_end'] = position + len(x)
             position = block['pos_end'] + 2
             if 'Title' in block:
-                out.append(block)
-        return out
+                self.Blocks.append(block)
+            elif 'Workshop' in block:
+                print(block)
+                self.Workshop = block
 
     def getDurationStr(self, index):
         try:
