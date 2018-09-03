@@ -8,22 +8,25 @@ scope: source.wplan
 
 contexts:
   main:
-    - match: ^Workshop\:\s(.*)
+    - match: ^(Workshop)(:)\s(.*)
       captures:
-        0: string.unquoted.plain.out.yaml entity.name.tag.yaml
-        1: workshop.title
-    - match: ^Title\:\s(.*)
+        1: string.unquoted.plain.out.yaml entity.name.tag.yaml
+        2: punctuation.separator.key-value.mapping.yaml
+        3: workshop.title
+    - match: ^(Title)(:)\s(.*)
       captures:
-        0: string.unquoted.plain.out.yaml entity.name.tag.yaml
-        1: entity.name.function workshop.block.title
-    - match: ^Type\:\s(none)?(discussion)?(theory)?(exercise)?(break)?
+        1: string.unquoted.plain.out.yaml entity.name.tag.yaml
+        2: punctuation.separator.key-value.mapping.yaml
+        3: entity.name.function workshop.block.title
+    - match: ^(Type)(:)\s(none)?(discussion)?(theory)?(exercise)?(break)?
       captures:
-        0: string.unquoted.plain.out.yaml entity.name.tag.yaml
-        1: workshop.block.type.none
-        2: workshop.block.type.discussion
-        3: workshop.block.type.theory
-        4: workshop.block.type.exercise
-        5: workshop.block.type.break
+        1: string.unquoted.plain.out.yaml entity.name.tag.yaml
+        2: punctuation.separator.key-value.mapping.yaml
+        3: workshop.block.type.none
+        4: workshop.block.type.discussion
+        5: workshop.block.type.theory
+        6: workshop.block.type.exercise
+        7: workshop.block.type.break
     - match: ^[\s\t]*\-\s(.*)
       scope: workshop.block.list
     - include: YAML.sublime-syntax
