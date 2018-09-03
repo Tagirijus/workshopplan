@@ -1,43 +1,33 @@
-Beginning of the workshop
-	Time
-		10
-	Type
-		discussion
-	Description
-		Greeting all the members and introducing of the teacher.
-	Goal
-		Getting to know each others.
-	Material
-		- Beamer
-		- Computer
-	Instructions
-		The teacher introduces him or herself.
+---
+Title: Greeting
+Length: 10
+Type: exercise
+Description: Greeting all the members and introducing of the teacher.
+Goal: Getting to know each others.
+Material:
+  - Beamer
+  - Computer
+Instructions: The teacher introduces him or herself.
 
-Break
-	Time
-		5
+---
+Title: Introducing the hard stuff
+Length: 30
+Type: theory
+Material:
+  - Beamer
+  - Computer
+Instructions: The teacher clicks through the hyper special presentation.
 
-Theory stuff
-	Time
-		30
-	Type
-		theory
-	Description
-		The teacher gives theory informatino about the workshop content.
-	Goal
-		The members of the workshop will get an idea what they have done by joining this workshop, uh oh!
-	Material
-		- Beamer
-		- Computer
-	Instructions
-		Teacher clicks here and there.
+---
+Title: Little break
+Length: 5
+Type: break
 
-Pracitce
-	Time
-		45
-	Type
-		practice
-	Description
-		The members will practice the learned stuff.
-	Material
-		- Computer for the members
+---
+Title: Practice
+Length: 60
+Type: exercise
+Description: The members of the workshop are now testing there new learned knowledge.
+Goal: Members become more skilled in these things.
+Material:
+ - Computer for the members

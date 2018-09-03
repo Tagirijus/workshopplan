@@ -2,22 +2,25 @@
 ---
 
 name: Workshop Plan
-file_extensions: [wplan]
+file_extensions:
+  - wplan
 scope: source.wplan
 
 contexts:
   main:
-    - match: ^[^\s\#\[](.*)
-      scope: workshop.block.title entity.name.function
-
-    - match: ^\t([^\t-]+)
-      scope: workshop.block.element
-
-    - match: ^\t\t([^\t>-]+)
-      scope: workshop.block.detail
-
-    - match: ^\t\t-\s([^\t]+)
+    - match: ^Title\:\s(.*)
+      captures:
+        0: string.unquoted.plain.out.yaml entity.name.tag.yaml
+        1: entity.name.function workshop.block.title
+    - match: ^Type\:\s(none)?(discussion)?(theory)?(exercise)?(break)?
+      captures:
+        0: string.unquoted.plain.out.yaml entity.name.tag.yaml
+        1: workshop.block.type.none
+        2: workshop.block.type.discussion
+        3: workshop.block.type.theory
+        4: workshop.block.type.exercise
+        5: workshop.block.type.break
+    - match: ^[\s\t]*\-\s(.*)
       scope: workshop.block.list
-
-    - match: ^\t\t>\s([^\t]+)
-      scope: workshop.block.detail.sub
+    - include: YAML.sublime-syntax
+...

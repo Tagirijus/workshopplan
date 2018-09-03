@@ -1,4 +1,5 @@
 import re
+import yaml
 
 
 TITLE = re.compile(r'^[^\s\#\[](.*)')
@@ -16,7 +17,6 @@ def toTime(integer):
 class WPlan(object):
     def __init__(self, string):
         self.Blocks = self.strToBlocks(string)
-        self.Elements = self.initElements()
 
     def __delitem__(self, key):
         self.Blocks.__delattr__(key)
@@ -34,25 +34,26 @@ class WPlan(object):
         out = []
         position = 0
         for x in string.split('\n\n'):
-            block = WPBlock(x, position)
-            position = block.pos_end + 2
-            if block is not None:
+            block = yaml.load(x)
+            block['pos_start'] = position
+            block['pos_end'] = position + len(x)
+            position = block['pos_end'] + 2
+            if 'Title' in block:
                 out.append(block)
         return out
 
-    def initElements(self):
-        out = []
-        for x in self.Blocks:
-            for e in x.Elements:
-                if e not in out:
-                    out.append(e)
-        return out
+    def getDurationStr(self, index):
+        try:
+            return toTime(self.Blocks[index]['Length'])
+        except Exception as e:
+            print(e)
+            return toTime(0)
 
     def getTimeSum(self):
         time = 0
         for x in self.Blocks:
             try:
-                time += int(x.Elements['Time'])
+                time += int(x['Length'])
             except Exception:
                 pass
         return toTime(time)
@@ -60,7 +61,7 @@ class WPlan(object):
     def getActualIndex(self, cursor_pos):
         block_index = -1
         for i, x in enumerate(self.Blocks):
-            if cursor_pos >= x.pos_start and cursor_pos <= x.pos_end:
+            if cursor_pos >= x['pos_start'] and cursor_pos <= x['pos_end']:
                 block_index = i
         return block_index
 
@@ -68,11 +69,11 @@ class WPlan(object):
         start = 0
         for x in self.Blocks[:index]:
             try:
-                start += int(x.Elements['Time'])
+                start += int(x['Length'])
             except Exception:
                 pass
         try:
-            end = start + int(self.Blocks[index].Elements['Time'])
+            end = start + int(self.Blocks[index]['Length'])
         except Exception:
             end = start
 
@@ -89,75 +90,11 @@ class WPlan(object):
         materials = {}
         for x in self.Blocks:
             try:
-                for m in x.Elements['Material']:
+                for m in x['Material']:
                     if m not in materials:
-                        materials[m] = [x.Title]
+                        materials[m] = [x['Title']]
                     else:
-                        materials[m].append(x.Title)
+                        materials[m].append(x['Title'])
             except Exception:
                 pass
         return materials
-
-    def getTypes(self):
-        types = []
-        for x in self.Blocks:
-            try:
-                if x.Elements['Type'] not in types:
-                    types.append(x.Elements['Type'])
-            except Exception:
-                pass
-        return types
-
-
-class WPBlock(object):
-    def __init__(self, string, pos_start):
-        self.pos_start = pos_start
-        self.pos_end = pos_start + len(string)
-        self.Title = ''
-        self.Elements = {}
-        self.last = 'undefined'
-        self.strToData(string)
-
-        if self.last == 'undefined':
-            return None
-
-    def __str__(self):
-        out = self.Title
-        for x in self.Elements:
-            out += '\n  {}: {}'.format(
-                x,
-                self.Elements[x]
-            )
-        return out
-
-    def strToData(self, string):
-        for x in string.split('\n'):
-            if TITLE.match(x):
-                self.Title = TITLE.match(x).group(0)
-                self.last = 'Title'
-
-            elif ELEMENT.match(x) and self.last != 'undefined':
-                self.last = ELEMENT.match(x).group(1)
-
-            elif DETAIL.match(x) and self.last != 'undefined':
-                if self.last not in self.Elements:
-                    self.Elements[self.last] = ''
-
-                if self.Elements[self.last] == '':
-                    self.Elements[self.last] = DETAIL.match(x).group(1)
-                else:
-                    self.Elements[self.last] += '\n' + DETAIL.match(x).group(1)
-
-            elif LIST.match(x) and self.last != 'undefined':
-                if self.last not in self.Elements:
-                    self.Elements[self.last] = []
-                self.Elements[self.last].append(LIST.match(x).group(1))
-
-    def getDuration(self):
-        try:
-            return int(self.Elements['Time'])
-        except Exception:
-            return 0
-
-    def getDurationStr(self):
-        return toTime(self.getDuration())

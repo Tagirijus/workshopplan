@@ -8,6 +8,8 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
         self.initMenu()
         self.initContent()
 
+        self.types = ['discussion', 'theory', 'exercise', 'break']
+
     def initMenu(self):
         self.data = self.generateMenu()
         sublime.active_window().show_quick_panel(
@@ -21,7 +23,8 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
 
     def generateMenu(self):
         return [
-            'Types',
+            'Add type',
+            'Add material',
             'Time',
             'Material'
         ]
@@ -33,14 +36,11 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
         if i == -1:
             return False
 
-        elif menu[i] == 'Types':
-            self.typeChoser(wp)
-
         elif menu[i] == 'Time':
             index = wp.getActualIndex(self.cursor_start)
-            title = wp.Blocks[index].Title
+            title = wp.Blocks[index]['Title']
             time = wp.getActualTimeStr(index)
-            duration = wp.Blocks[index].getDurationStr()
+            duration = wp.getDurationStr(index)
             all_time = wp.getTimeSum()
             msg = (
                 'Title:\t\t\t{}'
@@ -60,17 +60,22 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
                 material_uses.append(
                     '- {} ({})'.format(x, len(materials[x]))
                 )
-                material_blocks += '{}: {}\n\n'.format(
+                material_blocks += '\'{}\' used in:\n{}\n\n'.format(
                     x, ', '.join(materials[x])
                 )
-            msg = 'Materials:\n\nUsages:\n{}\n\nIn blocks:\n{}'.format(
+            msg = 'Materials:\n\nUsages:\n{}\n\n{}'.format(
                 '\n'.join(material_uses),
                 material_blocks
             )
             sublime.message_dialog(msg)
 
-    def typeChoser(self, wplan):
-        self.types = wplan.getTypes()
+        elif menu[i] == 'Add type':
+            self.typeChoser()
+
+        elif menu[i] == 'Add material':
+            self.materialChoser(wp)
+
+    def typeChoser(self):
         sublime.active_window().show_quick_panel(
             self.types, on_select=self.selectType
         )
@@ -81,6 +86,22 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
         else:
             try:
                 insert_me = self.types[i]
+                self.view.run_command('insert', {'characters': insert_me})
+            except Exception:
+                return False
+
+    def materialChoser(self, wplan):
+        self.used_materials = list(wplan.getMaterials().keys())
+        sublime.active_window().show_quick_panel(
+            self.used_materials, on_select=self.selectMaterial
+        )
+
+    def selectMaterial(self, i):
+        if i == -1:
+            return False
+        else:
+            try:
+                insert_me = '\n- ' + self.used_materials[i]
                 self.view.run_command('insert', {'characters': insert_me})
             except Exception:
                 return False
