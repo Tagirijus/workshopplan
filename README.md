@@ -42,7 +42,7 @@ I also thought about blocks to have these keys, while they are not needed for an
 
 - `Description`: the text description of the block
 - `Goal`: the goal for the block
-- `Instructions`: teh instructions the teacher should do
+- `Instructions`: the instructions the teacher should do
 
 There are auto-completions for adding a new `block` or a `break` (just type "block" or "break" and tab).
 
