@@ -285,6 +285,11 @@
             "foreground": "var(red)"
         },
         {
+            "scope": "workshop.title",
+            "foreground": "var(white)",
+            "font_style": "bold",
+        },
+        {
             "scope": "workshop.block.title",
             "foreground": "var(red)",
             "font_style": "bold",

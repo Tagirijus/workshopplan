@@ -8,6 +8,10 @@ scope: source.wplan
 
 contexts:
   main:
+    - match: ^Workshop\:\s(.*)
+      captures:
+        0: string.unquoted.plain.out.yaml entity.name.tag.yaml
+        1: workshop.title
     - match: ^Title\:\s(.*)
       captures:
         0: string.unquoted.plain.out.yaml entity.name.tag.yaml
