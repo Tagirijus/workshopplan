@@ -52,6 +52,7 @@ There are auto-completions for adding a new `block` or a `break` (just type "blo
 
 An example `.wplan` file is [here](documentation/example.wplan).
 
-## To do
+## Other projects
 
-- Export into HTML and / or PDF
+For rendering a `.wplan` file to a nice PDF, see my project [workshopplan_render](https://github.com/Tagirijus/workshopplan_render) here on github. I would like to embed this feature into the Sublime Text 3 plugin, but I could not make `weasyprint` work in a sublime text plugin. So now there is an independent python script for PDF rendering ...
+
