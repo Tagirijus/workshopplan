@@ -4,5 +4,6 @@
 test*.wplan
 test*.html
 test*.pdf
+test*.odt
 .build
 settings.yaml
