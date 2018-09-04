@@ -38,7 +38,7 @@ Type: none
 There are these basic keys, which are needed for the analyzing and exporting stuff later:
 
 - `Title`: the title of the workshop block
-- `Length`: an integer for the length of the block in MINUTES, or in the format `H:MM` (seems to be a feature of the YAML parser, cool! :D).
+- `Length`: an integer for the length of the block in MINUTES, or in the format `H:MM` (seems to be a feature of the YAML parser, cool! :D). The timeformat only works without a leading `0`, though. Instead of `Time: 0:30` it should be `Time: 30` only in the meta data, for example.
 - `Type`: one of these types, describing (and later coloring) the block: `none`, `discussion`, `theory`, `exercise` and `break`.
 - `Materiel`: a list holding the needed materials for this block.
 
