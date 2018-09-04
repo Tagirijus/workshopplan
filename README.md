@@ -38,7 +38,7 @@ Type: none
 There are these basic keys, which are needed for the analyzing and exporting stuff later:
 
 - `Title`: the title of the workshop block
-- `Length`: an integer for the length of the block in MINUTES
+- `Length`: an integer for the length of the block in MINUTES, or in the format `H:MM` (seems to be a feature of the YAML parser, cool! :D).
 - `Type`: one of these types, describing (and later coloring) the block: `none`, `discussion`, `theory`, `exercise` and `break`.
 - `Materiel`: a list holding the needed materials for this block.
 
@@ -54,5 +54,5 @@ An example `.wplan` file is [here](documentation/example.wplan).
 
 ## Other projects
 
-For rendering a `.wplan` file to a nice PDF, see my project [workshopplan_render](https://github.com/Tagirijus/workshopplan_render) here on github. I would like to embed this feature into the Sublime Text 3 plugin, but I could not make `weasyprint` work in a sublime text plugin. So now there is an independent python script for PDF rendering ...
+For rendering a `.wplan` file to a nice PDF, see my project [workshopplan_render](https://github.com/Tagirijus/workshopplan_render) here on github. I would like to embed this feature into the Sublime Text 3 plugin, but I could not make it work in a sublime text plugin. So now there is an independent python script for PDF rendering ...
 

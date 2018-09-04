@@ -8,6 +8,6 @@
 		{ "trigger": "block", "contents": "---\nTitle: ${1:TITLE}\nLength: ${2:MINUTES}\nType: ${3:none}\n${4:Description: ${5:null}\n}${6:Goal: ${7:null}\n}${8:Material:\n - ${9:null}\n}${10:Instructions: ${11:null}\n}" },
 		{ "trigger": "break", "contents": "---\nTitle: ${1:Break}\nLength: ${2:MINUTES}\nType: break\n" },
 
-		{ "trigger": "meta", "contents": "---\nWorkshop: ${1:TITLE}\nAuthor: ${2:Manuel Senfft}\nDescription: ${3:What this is all about ...}\n" },
+		{ "trigger": "meta", "contents": "---\nWorkshop: ${1:TITLE}\nAuthor: ${2:Manuel Senfft}\nDescription: ${3:What this is all about ...}\nTime: ${4:0:00}\n" },
 	]
 }

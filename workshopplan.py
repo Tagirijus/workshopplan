@@ -36,45 +36,72 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
             return False
 
         elif menu[i] == 'Time':
-            all_time = wp.getTimeSum()
             index = wp.getActualIndex(self.cursor_start)
             if index != -1:
-                title = wp.Blocks[index]['Title']
-                time = wp.getActualTimeStr(index)
-                duration = wp.getDurationStr(index)
                 msg = (
                     'Block information'
-                    '\n\nTitle:\t\t\t{}'
-                    '\nTime:\t\t\t{}'
-                    '\nDuration:\t\t{}'
-                    '\n\nOverall time:\t{}'
+                    '\n'
+                    '\nTitle:'
+                    '\n\t{}'
+                    '\n'
+                    '\nLength:'
+                    '\n\t{}'
+                    '\n'
+                    '\nTime (relative):'
+                    '\n\t{} - {}'
+                    '\n'
+                    '\nTime (absolute):'
+                    '\n\t{} - {}'
+                    '\n'
+                    '\nOverall length:'
+                    '\n\t{}'
                 ).format(
-                    title, time, duration, all_time
+                    wp.Blocks[index]['Title'],
+                    wp.Blocks[index]['Length string'],
+                    wp.Blocks[index]['Start relative string'],
+                    wp.Blocks[index]['End relative string'],
+                    wp.Blocks[index]['Start absolute string'],
+                    wp.Blocks[index]['End absolute string'],
+                    wp.Workshop['Length string']
                 )
             else:
                 msg = (
-                    'Workshop title:\n\t{}'
-                    '\nAuthor:\n\t{}'
-                    '\nOverall time:\n\t{}'
+                    'Workshop title:'
+                    '\n\t{}'
+                    '\n'
+                    '\nAuthor:'
+                    '\n\t{}'
+                    '\n'
+                    '\nOverall length:'
+                    '\n\t{}'
+                    '\n'
+                    '\nTime:'
+                    '\n\t{} - {}'
                 ).format(
                     wp.Workshop['Workshop'],
                     wp.Workshop['Author'],
-                    all_time
+                    wp.Workshop['Length string'],
+                    wp.Workshop['Start absolute string'],
+                    wp.Workshop['End absolute string'],
                 )
             sublime.message_dialog(msg)
 
         elif menu[i] == 'Material':
-            materials = wp.getMaterials()
             material_uses = []
             material_blocks = ''
-            for x in materials:
+            for x in wp.Workshop['Materials']:
                 material_uses.append(
-                    '- {} ({})'.format(x, len(materials[x]))
+                    '- {} ({})'.format(x, len(wp.Workshop['Materials'][x]))
                 )
                 material_blocks += '\'{}\' used in:\n{}\n\n'.format(
-                    x, ', '.join(materials[x])
+                    x, ', '.join(wp.Workshop['Materials'][x])
                 )
-            msg = 'Materials:\n\nUsages:\n{}\n\n{}'.format(
+            msg = (
+                'Materials:\n'
+                '\nUsages:\n{}'
+                '\n'
+                '\n{}'
+            ).format(
                 '\n'.join(material_uses),
                 material_blocks
             )
