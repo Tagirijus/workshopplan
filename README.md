@@ -38,15 +38,23 @@ Type: none
 There are these basic keys, which are needed for the analyzing and exporting stuff later:
 
 - `Title`: the title of the workshop block
-- `Length`: an integer for the length of the block in MINUTES, or in the format `H:MM` (seems to be a feature of the YAML parser, cool! :D). The timeformat only works without a leading `0`, though. Instead of `Time: 0:30` it should be `Time: 30` only in the meta data, for example.
+- `Length`: an integer for the length of the block in MINUTES, or in the format `H:MM` (seems to be a feature of the YAML parser, cool! :D). The timeformat only works without a leading `0`, though. Instead of `Length: 0:30` it should be `Length: 30` only in the meta data, for example.
 - `Type`: one of these types, describing (and later coloring) the block: `none`, `discussion`, `theory`, `exercise` and `break`.
 - `Materiel`: a list holding the needed materials for this block.
-
-I also thought about blocks to have these keys, while they are not needed for analyzing or changing the export:
-
 - `Description`: the text description of the block
 - `Goal`: the goal for the block
 - `Instructions`: the instructions the teacher should do
+
+There are also these possible meta data:
+
+```
+---
+Workshop: Title of the whole workshop
+Author: Author of the workshop
+Time: 10:00
+```
+
+The `Time` also behaves like `LEngth` and should mark the day time start for the workshop.
 
 There are auto-completions for adding a new `block` or a `break` (just type "block" or "break" and tab).
 
