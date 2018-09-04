@@ -129,7 +129,7 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
                 return False
 
     def materialChoser(self, wplan):
-        self.used_materials = list(wplan.getMaterials().keys())
+        self.used_materials = list(wplan.Workshop['Materials'].keys())
         sublime.active_window().show_quick_panel(
             self.used_materials, on_select=self.selectMaterial
         )
