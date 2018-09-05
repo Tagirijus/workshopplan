@@ -23,6 +23,7 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
     def generateMenu(self):
         return [
             'Time',
+            'Overall time',
             'Material',
             'Add type',
             'Add material'
@@ -65,25 +66,11 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
                     wp.Workshop['Length string']
                 )
             else:
-                msg = (
-                    'Workshop title:'
-                    '\n\t{}'
-                    '\n'
-                    '\nAuthor:'
-                    '\n\t{}'
-                    '\n'
-                    '\nOverall length:'
-                    '\n\t{}'
-                    '\n'
-                    '\nTime:'
-                    '\n\t{} - {}'
-                ).format(
-                    wp.Workshop['Workshop'],
-                    wp.Workshop['Author'],
-                    wp.Workshop['Length string'],
-                    wp.Workshop['Start absolute string'],
-                    wp.Workshop['End absolute string'],
-                )
+                msg = self.getOverallTimeInfo(wp)
+            sublime.message_dialog(msg)
+
+        elif menu[i] == 'Overall time':
+            msg = self.getOverallTimeInfo(wp)
             sublime.message_dialog(msg)
 
         elif menu[i] == 'Material':
@@ -112,6 +99,40 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
 
         elif menu[i] == 'Add material':
             self.materialChoser(wp)
+
+    def getOverallTimeInfo(self, wplan):
+        ratios = self.getRatiosString(wplan.Workshop['Types'])
+        return (
+            'Workshop title:'
+            '\n\t{}'
+            '\n'
+            '\nAuthor:'
+            '\n\t{}'
+            '\n'
+            '\nOverall length:'
+            '\n\t{}'
+            '\n'
+            '\nTime:'
+            '\n\t{} - {}'
+            '\n'
+            '\nRatios:'
+            '\n{}'
+        ).format(
+            wplan.Workshop['Workshop'],
+            wplan.Workshop['Author'],
+            wplan.Workshop['Length string'],
+            wplan.Workshop['Start absolute string'],
+            wplan.Workshop['End absolute string'],
+            ratios
+        )
+
+    def getRatiosString(self, typ):
+        out = ''
+        for x in typ:
+            out += '\t{} -- {} -- {} %\n'.format(
+                x, typ[x]['Length string'], typ[x]['Length percentage']
+            )
+        return out
 
     def typeChoser(self):
         sublime.active_window().show_quick_panel(
