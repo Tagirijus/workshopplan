@@ -44,6 +44,7 @@ There are these basic keys, which are needed for the analyzing and exporting stu
 - `Description`: the text description of the block
 - `Goal`: the goal for the block
 - `Instructions`: the instructions the teacher should do
+- `Notes`: Notes for the teacher
 
 There are also these possible meta data:
 
