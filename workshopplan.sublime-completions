@@ -9,7 +9,5 @@
 		{ "trigger": "break", "contents": "---\nTitle: ${1:Break}\nLength: ${2:MINUTES}\nType: break\n" },
 
 		{ "trigger": "meta", "contents": "---\nWorkshop: ${1:TITLE}\nAuthor: ${2:Manuel Senfft}\nDescription: ${3:What this is all about ...}\nTime: ${4:10:00}\n" },
-
-		{ "trigger": "br", "contents": "<br />" },
 	]
 }
