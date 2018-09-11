@@ -164,3 +164,68 @@ class WorkshopplanCommand(sublime_plugin.TextCommand):
                 self.view.run_command('insert', {'characters': insert_me})
             except Exception:
                 return False
+
+
+class WorkshopplanlistCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        self.initContent()
+        self.initMenu()
+
+    def initMenu(self):
+        self.menu = self.generateMenu()
+        sublime.active_window().show_quick_panel(
+            self.menu, on_highlight=self.select, on_select=None
+        )
+
+    def initContent(self):
+        self.cursor_start = self.view.sel()[0].begin()
+        self.all_region = sublime.Region(0, self.view.size())
+        self.all_content = self.view.substr(self.all_region)
+        self.wp = WPlan(self.all_content)
+
+    def generateMenu(self):
+        out = []
+        for x in self.wp.Blocks:
+            head = '{}  --  {}'.format(
+                x['Title'],
+                x['Type']
+            )
+            sub = '{} ==> {} - {}'.format(
+                x['Length string'],
+                x['Start absolute string'],
+                x['End absolute string']
+            )
+            out.append([head, sub])
+        return out
+
+    def select(self, i):
+        if i == -1:
+            return False
+
+        else:
+            try:
+                self.highlight(i)
+            except Exception:
+                return False
+
+    def highlight(self, i):
+        where = self.generateRegionFromWP(i)
+        self.view.sel().clear()
+        self.view.sel().add(where)
+        self.view.show(where)
+        self.update_view()
+
+    def update_view(self):
+        """
+        Update the view.
+
+        This method only exists due to a Sublime plugin bug.
+        """
+        self.view.add_regions("bug", sublime.Region(0, 0))
+        self.view.erase_regions("bug")
+
+    def generateRegionFromWP(self, index):
+        return sublime.Region(
+            self.wp.Blocks[index]['Position start'],
+            self.wp.Blocks[index]['Position end']
+        )
