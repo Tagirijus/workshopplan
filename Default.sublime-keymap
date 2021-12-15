@@ -1,0 +1,13 @@
+[
+	{ "keys": ["alt+w"], "command": "workshopplan",
+		"context": [
+	        {"key": "selector", "operator": "equal", "operand": "source.wplan"}
+	    ]
+	 },
+
+	{ "keys": ["ctrl+r"], "command": "workshopplanlist",
+	  "context": [
+	        {"key": "selector", "operator": "equal", "operand": "source.wplan"}
+	  ]
+	},
+]

@@ -12,19 +12,7 @@ I tested this plugin in Sublime Text 3 (build 3176).
 
 To install the plugin, clone the repo to a new folder like this: `[SUBLIME_FOLDER]/Packages/WorkshopPlan`. An install with the `Package Control` is not possible yet, since I am not sure how to do this. Help is appreciated here!
 
-After cloning you should set up key bindings like this:
-
-```JSON
-	{ "keys": ["alt+e"], "command": "workshopplan" },
-
-	{ "keys": ["ctrl+r"], "command": "workshopplanlist",
-	  "context": [
-	        {"key": "selector", "operator": "equal", "operand": "source.wplan"}
-	    ]
-	},
-```
-
-And now when pressing `Alt+E` the plugin starts and when pressing `Ctrl+R` you get the navigator with some information about the workshop blocks.
+Now when pressing `Alt+E` the plugin starts and when pressing `Ctrl+R` you get the navigator with some information about the workshop blocks.
 
 ## Settings
 
